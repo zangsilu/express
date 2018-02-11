@@ -1,0 +1,49 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="page-section">
+      <view class="weui-cells__title">选择快递公司</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+
+          <view class="weui-cell__bd">
+            <picker name='com' bindchange="bindPickerChange" value="{{index}}" range-key="name" range="{{objectArray}}">
+              <view class="weui-input">{{objectArray[index].name}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+
+
+    <view class="page-section">
+      <view class="weui-cells__title">请输入快递单号：</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <input name="nu" class="weui-input" />
+        </view>
+      </view>
+    </view>
+
+
+
+    <view class="btn" style='text-align:center;'>
+      <button size='mini' form-type="submit" style='margin:20rpx auto;'>查询</button>
+    </view>
+  </form>
+  <view class="content">
+    <block wx:if="{{detailList != '暂无数据'}}">
+      <view wx:for ="{{detailList}}">{{item.time}}  {{item.context}} </view>
+    </block>
+    <block wx:else>
+      <view>{{detailList}}</view>
+    </block>
+  </view>
+</view>
